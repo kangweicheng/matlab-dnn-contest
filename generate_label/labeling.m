@@ -1,7 +1,7 @@
 function [label] = labeling(imd, root)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-len_root = length(root)
+len_root = length(root);
 len = length(imd.Files);
 label = zeros(105, len);
 for i = 1:len
