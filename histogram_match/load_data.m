@@ -11,11 +11,11 @@ tic
 for i = process_image_index_single
     i
 %     [image] = histogram_match(imd,i); 
-    [img] = threshold_and_histequal(imd, i);
+    [img] = back_sub(imd, i);
 end
 %%
 for i = process_image_index_double
 %     [image] = histogram_match(imd_double,i); 
-    [img] = threshold_and_histequal(imd_double, i);
+    [img] = back_sub(imd_double, i);
 end
 toc
