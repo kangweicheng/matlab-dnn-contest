@@ -1,4 +1,4 @@
-function [rgb] = threshold_and_histequal(imd, i)
+function [rgb] = background_substraction(imd, i)
 %THRESHOLD_AND_HISTEQUAL Summary of this function goes here
 %   Detailed explanation goes here
 img = readimage(imd,i);
