@@ -1,5 +1,5 @@
 %%% root的部分記得改成你們自己的root
-root = 'D:\大三上\matlab contest\data';
+root = 'C:\Users\lin\Desktop\matlab-dnn-contest-data';
 process_image_index_single = [1:100];
 process_image_index_double = [210];
 
