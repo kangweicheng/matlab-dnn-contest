@@ -1,17 +1,18 @@
-function augimds = transform_2(imd,label_array, im_index)
+function augimds = transform_2(imageSize,imd,label_array, im_index)
 %TRANSFORM Summary of this function goes here
 %   Detailed explanation goes here
-image = readimage(imd, 1);
-imd_dram =[image];
-for j = 2:im_index
+imd_dram =[];
+for j = im_index
     image = readimage(imd, j);    
+    image = imresize( image, imageSize(1:2) );
     imd_dram = cat(4,imd_dram,image);
 end
 imageAugmenter = imageDataAugmenter( ...
     'RandRotation',[-20,20], ...
     'RandXTranslation',[-3 3], ...
     'RandYTranslation',[-3 3]);
-imageSize = [28 28 1];
-augimds = augmentedImageDatastore(imageSize,imd_dram,label_array,'DataAugmentation',imageAugmenter);
+
+augimds = augmentedImageDatastore(imageSize,imd_dram,label_array(im_index,:),'DataAugmentation',imageAugmenter);
+shuffle(augimds);
 
 

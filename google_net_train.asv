@@ -1,0 +1,40 @@
+function [net]=google_net_train(imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid)
+%% this batch training
+fprintf('google_net loading... \n');
+
+net = load('gnet_105_v1.mat');
+
+fprintf('net loaded.\n');
+fprintf('google_net training begin... \n');
+%% single
+fprintf('(single) \n');
+
+options = trainingOptions('sgdm', ...
+'MiniBatchSize',10, ...
+'MaxEpochs',10, ...
+'InitialLearnRate',1e-4, ...
+'ValidationData',imd_dram_valid, ...
+'ValidationFrequency',3, ...
+'ValidationPatience',Inf, ...
+'Verbose',false, ...
+'Plots','training-progress');
+
+net = trainNetwork(imd_d,net.lgraph_2,options);
+save(strcat('result-',datestr(now,30),'.mat'),'imdsTrain');
+%% singel validation
+[YPred, scores] = classify(netTransfer,augimdsValidation);
+YValidation = imdsValidation.Labels;
+accuracy = mean(YPred == YValidation)
+
+%% double
+fprintf('(double) \n');
+
+
+net = trainNetwork(imdsTrain,net.lgraph_2,options);
+save(strcat('double-result-',datestr(now,30),'.mat'),'imdsTrain');
+%% double validation
+[YPred, scores] = classify(netTransfer,augimdsValidation);
+YValidation = imdsValidation.Labels;
+accuracy = mean(YPred == YValidation)
+
+fprintf('training ends.\n');

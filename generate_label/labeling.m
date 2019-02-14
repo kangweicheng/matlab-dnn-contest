@@ -10,4 +10,4 @@ for i = 1:len
     label1 = str2num(label_str);
     label(label1, i) = 1;
 end
-
+label = transpose(label);

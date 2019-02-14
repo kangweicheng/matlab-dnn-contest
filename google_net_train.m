@@ -1,39 +1,49 @@
-function google_net_train(process_image_index_single,process_image_index_double,imd,imd_double,label_single,label_double)
-%%% root的部分記得改成你們自己的root
-path('C:\Users\lin\Desktop\matlab-dnn-contest\generate_label',path);
-path('C:\Users\lin\Desktop\matlab-dnn-contest\background_substraction',path);
-path('C:\Users\lin\Desktop\matlab-dnn-contest\image rotation',path);
-%% background substraction
-fprintf('background substraction begin... \n');
-fprintf('(single) \n');
-tic
-for i = process_image_index_single
-    i
-    [image] = background_substraction(imd, i);
-end
-fprintf('(double)');
-for i = process_image_index_double
-    i
-    [image] = background_substraction(imd_double, i);
-end
-toc
-fprintf('background substraction ends.\n');
-%% data save to DRAM-cell and rotate_transform
-fprintf('rotation begin... \n');
-rotate_images_num = 5;
-
-fprintf('(single) \n');
-imd_dram = transform(imd,label_single,rotate_images_num);
-fprintf('(double)');
-imd_double_dram = transform(imd_double, label_double,rotate_images_num);
-fprintf('rotation ends.\n');
+function [net]=google_net_train(imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid)
 %% this batch training
 fprintf('google_net loading... \n');
-net = googlenet
-fprintf('net loaded... \n');
+
+net = load('gnet_105_v1.mat');
+
+fprintf('net loaded.\n');
 fprintf('google_net training begin... \n');
-options = trainingOptions('sgdm',...
-    'MiniBatchSize',10,...
-    'MaxEpochs',10,...
-    'InitialLearnRate',0.0001,...    
-    'ExecutionEnvironment','auto');
+%% single
+fprintf('(single) \n');
+
+options = trainingOptions('sgdm', ...
+'MiniBatchSize',10, ...
+'MaxEpochs',10, ...
+'InitialLearnRate',1e-4, ...
+'ValidationData',imd_dram_valid, ...
+'ValidationFrequency',3, ...
+'ValidationPatience',Inf, ...
+'Verbose',false, ...
+'Plots','training-progress');
+
+net = trainNetwork(imd_dram,net.lgraph_2,options);
+save(strcat('result-',datestr(now,30),'.mat'),'net');
+%% singel validation
+[YPred, scores] = classify(net,imd_dram_valid);
+YValidation = imd_dram_valid.Labels;
+accuracy = mean(YPred == YValidation)
+
+%% double
+fprintf('(double) \n');
+
+options = trainingOptions('sgdm', ...
+'MiniBatchSize',10, ...
+'MaxEpochs',10, ...
+'InitialLearnRate',1e-4, ...
+'ValidationData',imd_double_dram_valid, ...
+'ValidationFrequency',3, ...
+'ValidationPatience',Inf, ...
+'Verbose',false, ...
+'Plots','training-progress');
+
+net_double = trainNetwork(imd_double_dram,net.lgraph_2,options);
+save(strcat('result-',datestr(now,30),'.mat'),'net_double');
+%% singel validation
+[double_YPred, double_scores] = classify(net_double,imd_double_dram_valid);
+double_YValidation = imd_double_dram_valid.Labels;
+double_accuracy = mean(double_YPred == double_YValidation)
+
+fprintf('training ends.\n');

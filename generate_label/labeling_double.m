@@ -16,5 +16,5 @@ for i = 1:len
     label2 = str2num(label_str{2});
     label(label2, i) = 1;
 end
-end
+label = transpose(label);
 
