@@ -18,6 +18,7 @@ for i = process_image_index_double
 end
 fprintf('\n background substraction ends.\n');
 toc
+save prepare
 %% data save to DRAM-cell and rotate_transform
 fprintf('rotation begin... \n');
 tic
@@ -32,3 +33,4 @@ imd_double_dram = transform_2(imageSize,imd_double,label_double,process_image_in
 imd_double_dram_valid = transform_2(imageSize,imd_double_valid,label_double,process_image_index_double);
 fprintf('rotation ends.\n');
 toc
+save prepare

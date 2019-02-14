@@ -1,4 +1,6 @@
-function [net]=google_net_train(imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid)
+function [net]=google_net_train(imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid,labels,labels_double)
+path('C:\Users\lin\Desktop\matlab-dnn-contest\accuracy',path);
+save google_net_train
 %% this batch training
 fprintf('google_net loading... \n');
 
@@ -16,15 +18,14 @@ options = trainingOptions('sgdm', ...
 'ValidationData',imd_dram_valid, ...
 'ValidationFrequency',3, ...
 'ValidationPatience',Inf, ...
-'Verbose',false, ...
+'Verbose',true, ...
 'Plots','training-progress');
 
 net = trainNetwork(imd_dram,net.lgraph_2,options);
 save(strcat('result-',datestr(now,30),'.mat'),'net');
 %% singel validation
-[YPred, scores] = classify(net,imd_dram_valid);
-YValidation = imd_dram_valid.Labels;
-accuracy = mean(YPred == YValidation)
+YPred = predict(net,imd_dram_valid);
+fprintf("accuracy: %d percents. \n",100*accuracy(YPred,labels))
 
 %% double
 fprintf('(double) \n');
@@ -36,14 +37,13 @@ options = trainingOptions('sgdm', ...
 'ValidationData',imd_double_dram_valid, ...
 'ValidationFrequency',3, ...
 'ValidationPatience',Inf, ...
-'Verbose',false, ...
+'Verbose',true, ...
 'Plots','training-progress');
 
 net_double = trainNetwork(imd_double_dram,net.lgraph_2,options);
 save(strcat('result-',datestr(now,30),'.mat'),'net_double');
-%% singel validation
-[double_YPred, double_scores] = classify(net_double,imd_double_dram_valid);
-double_YValidation = imd_double_dram_valid.Labels;
-double_accuracy = mean(double_YPred == double_YValidation)
+%% double validation
+YPred = predict(net,imd_dram_valid);
+fprintf("accuracy: %d %",100*accuracy(YPred,labels_double))
 
 fprintf('training ends.\n');

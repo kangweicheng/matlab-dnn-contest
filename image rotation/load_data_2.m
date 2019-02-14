@@ -9,10 +9,10 @@ images_num = 5;
 imd = imageDatastore([root '\Train_single']);
 imd_double = imageDatastore([root '\Train_double']);
 fprintf('start single labeling ...    ')
-[label_single] = transpose( labeling(imd, root) );
+[imd,label_single] = labeling(imd, root);
 fprintf('done!\n')
 fprintf('start double labeling ...    ')
-[label_double] = transpose( labeling_double(imd_double,root) );
+[imd_double,label_double] = labeling_double(imd_double,root);
 fprintf('done!\n')
 %%
 imageSize = [10 10 3];
@@ -22,4 +22,3 @@ elseif isequal(imd_category, 'double')
     imgs = transform_2(imageSize,imd_double, label_double, im_index);
 end
 preview(imgs)
-imshow(readByIndex(imgs,2))
