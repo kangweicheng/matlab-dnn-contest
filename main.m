@@ -4,6 +4,7 @@ path('C:\Users\lin\Desktop\matlab-dnn-contest\generate_label',path);
 imd = imageDatastore([root '\Train_single']);
 imd_double = imageDatastore([root '\Train_double']);
 %% labeling
+s
 fprintf('start single labeling ...    ')
 [imd,label_single] = labeling(imd, root);
 fprintf('done!\n')
