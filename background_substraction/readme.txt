@@ -1,2 +1,0 @@
-1. load data的root要記得改，然後process_image_index_single裡面的數字表示你想要處理的image index
-2. histogram_match並未使用到
