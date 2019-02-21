@@ -25,7 +25,7 @@ net = trainNetwork(imd_dram,net.lgraph_2,options);
 save(strcat('result-',datestr(now,30),'.mat'),'net');
 %% singel validation
 YPred = predict(net,imd_dram_valid);
-fprintf("accuracy: %d percents. \n",100*accuracy(YPred,labels))
+fprintf("accuracy: %d percents. \n",100*accuracy(YPred,labels));
 
 %% double
 fprintf('(double) \n');
