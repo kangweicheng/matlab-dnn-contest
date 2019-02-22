@@ -1,8 +1,8 @@
 function [imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid] = prepare(process_image_index_single,process_image_index_double,imd,imd_double,label_single,label_double)
 %%% root的部分記得改成你們自己的root
-path('C:\Users\lin\Desktop\matlab-dnn-contest\background_substraction',path);
-path('C:\Users\lin\Desktop\matlab-dnn-contest\image rotation',path);
-path('C:\Users\lin\Desktop\matlab-dnn-contest\counter',path);
+path('/Users/kuipasta1121/Desktop/matlab-dnn-contest/background_substraction',path);
+path('/Users/kuipasta1121/Desktop/matlab-dnn-contest/image rotation',path);
+path('/Users/kuipasta1121/Desktop/matlab-dnn-contest/counter',path);
 %% background substraction
 fprintf('background substraction begin... \n');
 fprintf('(single) \nnow is image#');
