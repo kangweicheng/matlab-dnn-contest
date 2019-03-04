@@ -22,7 +22,7 @@ function [acu] = accuracy_double(YPred,YValidation)
         if (length(index) ==2) && (isequal(sort(index),right_index)) 
             correct_count = correct_count + 1;
         elseif (length(index) ==1) && (length(index_2) ==1) && (isequal(sort([index,index_2]),right_index))
-               if (b > a/2)&& ( ( isempty(c) == 1 ) || (b/2 >= c) )
+               if (b > a)&& ( ( isempty(c) == 1 ) || (b >= c) )
                     correct_count = correct_count + 1;
                end
         end

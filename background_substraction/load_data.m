@@ -1,27 +1,29 @@
-%%% root的部分記得改成你們自己的root
-root = 'C:\Users\lin\Desktop\matlab-dnn-contest-data';
-process_image_index_single = [1];
-process_image_index_double = [210];
-
+path('..',path)
+root = folder_name();
+path('../generate_imd',path);
+process_image_index_single = [1:129];
+process_image_index_double = [1:129];
 %%
 imd = imageDatastore([root '\Train_single']);
 imd_double = imageDatastore([root '\Train_double']);
-img_percent_single_double = [process_image_index_single/length(imd.Files) process_image_index_double/length(imd_double.Files)]
-len_of_data = ( length(process_image_index_single)+length(process_image_index_double) );
 %image_1 = readimage(imd,1);
 %img = zeros([size(image_1) len_of_data]);
 %%
-tic
-for i = process_image_index_single
-    i
-%     [image] = histogram_match(imd,i); 
-[image] = background_substraction(imd, i);
-end
+fprintf('start single labeling ...    ')
+[imd,label_single] = youan_labeling(imd, root) ;
+fprintf('done!\n')
+fprintf('start double labeling ...    ')
+[imd_double,label_double] = youan_labeling_double(imd_double,root);
+fprintf('done!\n')
 %%
-for i = process_image_index_double
-%     [image] = histogram_match(imd_double,i); 
-[image] = background_substraction(imd_double, i);
-end
+youan_substraction_to_new_folder(imd,imd_double,process_image_index_single,process_image_index_double);
 %% output
- imshow(readimage(imd,1))
+imd = imageDatastore([root '\Post_Train_single']);
+imd_double = imageDatastore([root '\Post_Train_double']);
+img_percent_single_double = [process_image_index_single/length(imd.Files) process_image_index_double/length(imd_double.Files)]
+len_of_data = ( length(process_image_index_single)+length(process_image_index_double) );
+subplot(1,2,1);
+imshow(readimage(imd,1));
+subplot(1,2,2);
+imshow(readimage(imd_double,1));
 toc
