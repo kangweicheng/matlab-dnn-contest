@@ -4,6 +4,6 @@ echo %var%
 git rm -r --cached .
 git add .
 git commit -m "%var%"
-set /p var2=Please Enter Message:
+set /p var2=Please Enter branch:
 git push origin %var2%
 pause
