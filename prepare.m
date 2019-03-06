@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 function [imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid,part_label_single,part_label_single_valid, ...
     part_label_double,part_label_double_valid] = prepare(process_image_index_single,process_image_index_double,imd,imd_double,label_single,label_double)
 root = folder_name();
 path('.\background_substraction',path);
 path('.\image augmentation',path);
 path('.\counter',path);
+=======
+function [imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid] = prepare(process_image_index_single,process_image_index_double,imd,imd_double,label_single,label_double)
+%%% root的部分記得改成你們自己的root
+path('/Users/kuipasta1121/Desktop/matlab-dnn-contest/background_substraction',path);
+path('/Users/kuipasta1121/Desktop/matlab-dnn-contest/image rotation',path);
+path('/Users/kuipasta1121/Desktop/matlab-dnn-contest/counter',path);
+>>>>>>> a48babedb83b5db032b33678b9b619a7518a3cde
 %% background substraction
 fprintf('background substraction begin... \n');
 %% background substraction :  first process
