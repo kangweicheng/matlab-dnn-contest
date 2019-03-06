@@ -7,9 +7,9 @@ function [acu] = accuracy(YPred,YValidation)
         right_index = find( YValidation(i,:) );
         a = max(YPred(i,:));
         b = second_max(YPred(i,:));
-        if a/2 >= b
+        if a >= b
             index = find(YPred(i,:) == a);
-            if (length(index)==1) && (index == right_index)
+            if ((length(index)==1) && (index == right_index(1) || index == right_index(2)))
                 correct_count = correct_count + 1;
             end
         end
