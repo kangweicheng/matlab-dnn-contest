@@ -1,3 +1,4 @@
 function [root] = folder_name()
-    root = 'C:\Users\lin\Desktop\matlab-dnn-contest-data';    
+%%% data folder root 
+    root = 'D:\¤j¤T¤W\matlab contest\data';    
 end

@@ -1,4 +1,4 @@
-function [rgb] = background_substraction(imd, i)
+function [rgb, shape] = background_substraction(imd, i)
 %THRESHOLD_AND_HISTEQUAL Summary of this function goes here
 %   Detailed explanation goes here
 img = readimage(imd,i);
@@ -9,8 +9,11 @@ lp = fspecial('average',5);
 y = filter2(lp,double(y),'same');
 %%
 BW = edge(y);
-%%
 lp = fspecial('average',30);
+shape = filter2(lp,double(BW),'same');
+shape(shape~=0)=255;
+%%
+lp = fspecial('average',20);
 region = filter2(lp,double(BW),'same');
 %%
 region(region < 0.05) = 0;
@@ -19,7 +22,7 @@ region(region > 0) = 255;
 lp = fspecial('average',300);
 im2 = filter2(lp,region,'same');
 %%
-im2(im2 < 5) = 0;
+im2(im2 < 3) = 0;
 im2(im2 > 0) = 255;
 %%
 y2 = zeros(size(y));

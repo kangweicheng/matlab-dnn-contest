@@ -1,8 +1,8 @@
-path('..',path)
+path('..',path);
 root = folder_name();
 path('../generate_imd',path);
-process_image_index_single = [1:129];
-process_image_index_double = [1:129];
+process_image_index_single = [1:10];
+process_image_index_double = [1:10];
 %%
 imd = imageDatastore([root '\Train_single']);
 imd_double = imageDatastore([root '\Train_double']);

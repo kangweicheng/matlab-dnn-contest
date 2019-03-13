@@ -1,5 +1,5 @@
 function [imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid,part_label_single,part_label_single_valid, ...
-    part_label_double,part_label_double_valid] = prepare(process_image_index_single,process_image_index_double,imd,imd_double,label_single,label_double)
+    part_label_double,part_label_double_valid] = prepare(process_image_index_single,process_image_index_double,imd,imd_double)
 root = folder_name();
 path('.\background_substraction',path);
 path('.\image augmentation',path);
@@ -11,22 +11,23 @@ fprintf('background substraction begin... \n');
 %% background substraction : load previous result
 imd = imageDatastore([root '\Post_Train_single']);
 imd_double = imageDatastore([root '\Post_Train_double']);
-
-% re-labeling
+fprintf('\n background substraction ends.\n');
+%% labeling
 fprintf('start single labeling ...    ')
 [imd,part_label_single] = youan_labeling(imd, root);
 fprintf('done!\n')
 fprintf('start double labeling ...    ')
 [imd_double,part_label_double] = youan_labeling_double(imd_double,root);
 fprintf('done!\n')
-%
-fprintf('\n background substraction ends.\n');
-
 save prepare
 %% data save to DRAM-cell and rotate_transform
 fprintf('rotation begin... \n');
 tic
+
+%you can rejust this--with google net input----------------------
 imageSize = [224 224 3];
+%----------------------------------------------------------------
+
 fprintf('(single) \n');
 [imd, imd_valid] = splitEachLabel(imd,0.7,'randomized');
 %re-label
