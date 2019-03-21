@@ -3,7 +3,7 @@ echo Below is the branch you can checkout:(if not appear,it means someone edit i
 git branch
 set /p var=Please Enter New_BRANCH_Name:
 echo %var%
-choice /C:YN /M:"Remove only the last log file?"
+choice /C:YN /M:"Are you sure?"
 if errorlevel 3 goto end 
 if errorlevel 2 goto No 
 if errorlevel 1 goto Yes

@@ -1,4 +1,4 @@
-function augimds = transform_2(imageSize,imd,label_array, im_index)
+function augimds = transform_youan(imageSize,imd,label_array, im_index)
 %TRANSFORM Summary of this function goes here
 %   Detailed explanation goes here
 imd_dram =[];

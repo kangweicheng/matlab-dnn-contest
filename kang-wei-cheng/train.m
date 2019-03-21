@@ -4,7 +4,7 @@ folder = '\Train_single';
 index = 16;
 load_imd
 %%
-substraction_to_new_folder
+%substraction_to_new_folder
 %%
 folder = '\post_Train_single';
 index = 21;

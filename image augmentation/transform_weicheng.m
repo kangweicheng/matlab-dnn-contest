@@ -1,15 +1,18 @@
-function [image_ori, imgs] = transform_weicheng(imd, im_index, images_num)
+function augimds = transform_weicheng(imageSize,imd,label_array, im_index)
 %TRANSFORM Summary of this function goes here
 %   Detailed explanation goes here
-imgs = [];
-image_ori = readimage(imd, im_index);
-for i = 1:images_num
-    tform = affine2d([0,1,0;1,0,0;1,0,1;]);
-    angle = randi( [ 0, 360 ], 1, 1);
-    position = randi([-100, 100], 1, 2);
-    image = imrotate(image_ori, angle, 'bilinear', 'loose');
-    image = imtranslate(image, position);
-    imgs = [imgs {image}];
+imd_dram =[];
+for j = im_index
+    image = readimage(imd, j);    
+    image = imresize( image, imageSize(1:2) );
+    imd_dram = cat(4,imd_dram,image);
 end
+imageAugmenter = imageDataAugmenter( ...
+    'RandRotation',[-20,20], ...
+    'RandXTranslation',[-3 3], ...
+    'RandYTranslation',[-3 3]);
+
+augimds = augmentedImageDatastore(imageSize,imd_dram,label_array(:,im_index),'DataAugmentation',imageAugmenter);
+shuffle(augimds);
 
 

@@ -18,12 +18,19 @@ function [acu] = accuracy_double(YPred,YValidation)
         
         index = find(YPred(i,:) == a);
         index_2 = find(YPred(i,:) == b);
-            
+        fprintf('image index:%d ',i);
+        fprintf('right index:%d ',right_index(1));
+        fprintf('right index:%d ',right_index(2));
+        fprintf('predict index:%d\n',index);
+        fprintf('predict index:%d\n',index_2);    
+        
         if (length(index) ==2) && (isequal(sort(index),right_index)) 
             correct_count = correct_count + 1;
+            fprintf('correct');
         elseif (length(index) ==1) && (length(index_2) ==1) && (isequal(sort([index,index_2]),right_index))
                if (b > a)&& ( ( isempty(c) == 1 ) || (b >= c) )
                     correct_count = correct_count + 1;
+                    fprintf('correct')
                end
         end
     end
