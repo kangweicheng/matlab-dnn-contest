@@ -2,7 +2,7 @@ path('.',path);
 root = folder_name();
 data = load('FinishedLabel.mat');
 data = data.gTruth;
-oldPathDataSource = "/Users/kuipasta1121/Desktop/trainImagev2/";
+oldPathDataSource = "C:\\Users\\lin\\Desktop\\matlab-dnn-contest-data";
 newPathDataSource = root;
 alterPaths = {[oldPathDataSource newPathDataSource]};
 changeFilePaths(data,alterPaths);
