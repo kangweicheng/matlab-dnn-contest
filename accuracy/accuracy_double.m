@@ -14,10 +14,14 @@ function [acu] = accuracy_double(YPred,YValidation)
         right_index = find( YValidation(i,:) );
         a = max(YPred(i,:));
         b = second_max(YPred(i,:));
-        c = third_max(YPred(i,:));
+        %c = third_max(YPred(i,:));
         
         index = find(YPred(i,:) == a);
-        index_2 = find(YPred(i,:) == b);
+        if isempty(b)
+            index_2 = a;
+        else
+            index_2 = find(YPred(i,:) == b);
+        end
         fprintf('image index:%d ',i);
         fprintf('right index:%d ',right_index(1));
         fprintf('right index:%d ',right_index(2));
@@ -28,7 +32,7 @@ function [acu] = accuracy_double(YPred,YValidation)
             correct_count = correct_count + 1;
             fprintf('correct');
         elseif (length(index) ==1) && (length(index_2) ==1) && (isequal(sort([index,index_2]),right_index))
-               if (b > a)&& ( ( isempty(c) == 1 ) || (b >= c) )
+               if (b > a) %&& ( ( isempty(c) == 1 ) || (b >= c) )
                     correct_count = correct_count + 1;
                     fprintf('correct')
                end

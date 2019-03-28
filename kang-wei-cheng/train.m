@@ -33,3 +33,4 @@ layers = [
     softmaxLayer
     classificationLayer];
 netTransfer = trainNetwork(augimdsTrain,layers,options);
+save(strcat('rcnn-result-double-',datestr(now,30),'.mat'),'netTransfer');

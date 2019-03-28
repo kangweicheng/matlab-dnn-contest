@@ -12,7 +12,7 @@ for i = 1:len
     Labels(i) = string(label_str);
     label(label1, i) = 1;
 end
-imd.Labels = Labels';
+imd.Labels = Labels;
 imd.Labels = categorical(imd.Labels);
 
 

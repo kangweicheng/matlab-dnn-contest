@@ -7,7 +7,7 @@ imd_double = imageDatastore([root '\Train_double']);
 %% pre-augmenting one time
 single_index = [];%useless
 double_index = [1:3611];% useless
-[imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid,part_label_single,part_label_single_valid, ...
+[imd,imd_double,imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid,part_label_single,part_label_single_valid, ...
     part_label_double,part_label_double_valid] = prepare(single_index,double_index,imd,imd_double);
 %% train one time
 net = google_net_train(imd_dram,imd_dram_valid,imd_double_dram,imd_double_dram_valid,part_label_single,part_label_double,part_label_single_valid,part_label_double_valid);
